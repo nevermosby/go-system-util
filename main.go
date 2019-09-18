@@ -20,16 +20,18 @@ func main(){
 	}
 
 	// stdOut, stdErr, err := crcos.RunWithDefaultLocale(path, "is-active", "NetworkManager")
-	stdOut, stdErr, err := crcos.RunWithDefaultLocale(path, "is-active", "network-manager")
+	stdOut, stdErr, err := crcos.RunWithDefaultLocale(path, "network-manager", "status")
 
 	if err != nil {
 		fmt.Printf("%v : %s", err, stdErr)
 	} else {
 
-		if strings.TrimSpace(stdOut) != "active" {
-			fmt.Printf("NetworkManager.service is not running")
+		// if strings.TrimSpace(stdOut) != "active" {
+		if strings.Contains(strings.TrimSpace(stdOut), "running") {
+			fmt.Println("NetworkManager.service is already running")
+		} else{
+			fmt.Println("NetworkManager.service is not running")
 		}
-		fmt.Println("NetworkManager.service is already running")
 	}
 
 }
